@@ -22,3 +22,9 @@ dnf5 install -y tmux
 #### Example for enabling a System Unit File
 
 systemctl enable podman.socket
+
+dnf5 -y copr enable shadowblip/InputPlumber
+dnf5 remove -y --no-autoremove hhd hhd-ui
+dnf5 install -y inputplumber
+systemctl enable inputplumber.service inputplumber-suspend.service
+dnf5 -y copr disable shadowblip/InputPlumber
