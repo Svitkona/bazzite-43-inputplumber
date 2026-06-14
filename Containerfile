@@ -34,7 +34,22 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
     /ctx/build.sh
-    
+
+RUN curl -L -o /tmp/powerstation.rpm \
+	https://github.com/ShadowBlip/PowerStation/releases/download/v0.8.1/powerstation-0.8.1-1.x86_64.rpm && \
+	dnf5 install -y /tmp/powerstation.rpm && rm -rf /tmp/powerstation.rmp
+
+RUN curl -L -o /tmp/ogui.tar.gz \
+      https://github.com/Svitkona/OpenGamepadUI/releases/download/ogui-fix/opengamepadui.tar.gz && \
+    tar xzf /tmp/ogui.tar.gz -C /tmp && \
+    cd /tmp/opengamepadui && make install PREFIX=/usr && \
+    rm -rf /tmp/ogui.tar.gz /tmp/opengamepadui
+
+COPY gamescope-session-config/opengamepadui /usr/share/gamescope-session-plus/sessions.d/opengamepadui
+COPY gamescope-session-config/gamescope-session-opengamepadui.desktop /usr/share/wayland-sessions/gamescope-session-opengamepadui.desktop
+COPY gamescope-session-config/steamos.conf /usr/share/bazzite-inputplumber/steamos.conf
+COPY gamescope-session-config/sddm-session.conf /usr/lib/tmpfiles.d/sddm-session.conf
+
 ### LINTING
 ## Verify final image and contents are correct.
 RUN bootc container lint
