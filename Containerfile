@@ -49,6 +49,8 @@ COPY gamescope-session-config/opengamepadui /usr/share/gamescope-session-plus/se
 COPY gamescope-session-config/gamescope-session-opengamepadui.desktop /usr/share/wayland-sessions/gamescope-session-opengamepadui.desktop
 COPY gamescope-session-config/steamos.conf /usr/share/bazzite-inputplumber/steamos.conf
 COPY gamescope-session-config/sddm-session.conf /usr/lib/tmpfiles.d/sddm-session.conf
+COPY system_files/deck/shared/usr/libexec/bazzite-autologin /usr/libexec/bazzite-autologin
+
 
 ### LINTING
 ## Verify final image and contents are correct.
